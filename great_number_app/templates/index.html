@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Number Game</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h4>Welcome to the Great Number Game!</h4>
+        <p>I am thinking of a number between 1 and 100</p>
+            {% if replay %}
+                <p>Well Done!</p>
+                <p>You got it correct on your guess number {{count}}!!</p>
+                <div class="guessbox" style="background-color: {{color}}">
+                <p>{{result}}</p>
+                </div>
+                <p>Please enter your name: </p>
+                <form action="/success" method="POST">
+                    {% csrf_token %}
+                        <label>
+                            <input type="text" name = 'username'>
+                        </label>
+                        <br>
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+            {% else %}
+                <p>Take a guess!</p>
+                <p style="background-color: yellow;">YOU GET <span class="five">5 </span>TRIES!</p>
+                <p>You have <span class = "ct">{{triesleft}}</span> guess(es) left</p>
+                <div class="guessbox" style="background-color: {{color}}">
+                {{result}}
+                </div>
+                {% if triesleft != 0 %}
+                    <form action="/process" method="POST">
+                    {% csrf_token %}
+                        <label>
+                            <input type="number" name = "guessnumber" placeholder="Guess the number!">
+                        </label>
+                        <br>
+                        <button class="btn btn-info">Guess!</button>
+                    </form>
+                {% else %}
+                    <h4>You have used up your 5 guesses. You Lose. Please restart the game</h4>
+                    <form action="/restart" method="POST">
+                    {% csrf_token %}
+                        <button class="btn btn-info">Restart!</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+    </div>
+</body>
+</html>

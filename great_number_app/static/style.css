@@ -1,0 +1,25 @@
+*{
+    text-align: center;
+    margin: auto;
+}
+.container{
+    padding-top: 50px;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+.guessbox{
+    width: fit-content;
+    height: fit-content;
+    padding: 30px;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+.btn{
+    margin-top: 20px;
+}
+.five, .ct{
+    color: red;
+    font-size: large;
+}
